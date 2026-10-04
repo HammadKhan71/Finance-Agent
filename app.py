@@ -248,23 +248,24 @@ st.markdown(
     
     /* ── Chat Input ── */
     [data-testid="stChatInput"] {
-        background: #ffffff !important;
-        border: 1px solid #10b981 !important;
+        background-color: #ffffff !important;
+        border: 2px solid #10b981 !important;
         border-radius: var(--radius);
         box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1) !important;
     }
-    [data-testid="stChatInput"] > div {
-        background: transparent !important;
+    [data-testid="stChatInput"] > div,
+    [data-testid="stChatInput"] > div > div {
+        background-color: #ffffff !important;
     }
     [data-testid="stChatInput"] textarea {
-        color: #0f172a !important;
-        background: transparent !important;
+        color: #10b981 !important;
+        background-color: #ffffff !important;
     }
     [data-testid="stChatInput"] textarea::placeholder {
-        color: #64748b !important;
+        color: rgba(16, 185, 129, 0.7) !important;
     }
     [data-testid="stChatInput"] button {
-        background: #10b981 !important;
+        background-color: #10b981 !important;
         color: #ffffff !important;
         border-radius: var(--radius) !important;
     }
