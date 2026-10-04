@@ -828,23 +828,7 @@ def render_expense_history():
 # CHAT TAB
 # ─────────────────────────────────────────────
 
-QUICK_PROMPTS = [
-    "Show all budget status",
-    "Log PKR 3,500 on food — groceries and check budget status",
-    "Convert 100 USD to PKR",
-    "I want to save 100,000 PKR. I can save 10,000 per month.",
-    "I keep overspending on food, give me a money-saving tip",
-]
-
-def render_chat(agent_executor):
-    st.markdown("**Quick Prompts (Assignment Checks)**")
-    cols = st.columns(len(QUICK_PROMPTS))
-    for i, prompt in enumerate(QUICK_PROMPTS):
-        if cols[i].button(prompt[:12]+"...", key=f"qp_{i}", help=prompt):
-            st.session_state._pending_prompt = prompt
-
-    st.markdown("<br>", unsafe_allow_html=True)
-
+def render_chat():
     chat_container = st.container(height=460, border=False)
 
     with chat_container:
@@ -876,29 +860,6 @@ def render_chat(agent_executor):
                     </div>
                 """, unsafe_allow_html=True)
 
-    pending = st.session_state.pop("_pending_prompt", None)
-    user_input = st.chat_input("Ask FinanceAI anything about your finances...")
-
-    query = user_input or pending
-
-    if query:
-        now_str = datetime.now().strftime("%I:%M %p")
-        st.session_state.messages.append({"role": "user", "content": query, "time": now_str})
-
-        if agent_executor:
-            with st.spinner(f"FinanceAI is thinking..."):
-                try:
-                    # langgraph agent invocation syntax
-                    result = agent_executor.invoke({'messages': [{'role': 'user', 'content': query}]})
-                    response = result['messages'][-1].content
-                except Exception as exc:
-                    response = f"Error: {str(exc)}\n\nPlease check your API key and try again."
-        else:
-            response = "Please add your API key (AWS Bedrock or Google Gemini) in the sidebar to start chatting. You can get a free Google Gemini key from Google AI Studio."
-
-        st.session_state.messages.append({"role": "assistant", "content": response, "time": now_str})
-        st.rerun()
-
 
 # ─────────────────────────────────────────────
 # MAIN
@@ -926,13 +887,32 @@ def main():
     ])
 
     with tab_chat:
-        render_chat(agent_executor)
+        render_chat()
 
     with tab_charts:
         render_charts()
 
     with tab_history:
         render_expense_history()
+
+    user_input = st.chat_input("Ask FinanceAI anything about your finances...")
+    
+    if user_input:
+        now_str = datetime.now().strftime("%I:%M %p")
+        st.session_state.messages.append({"role": "user", "content": user_input, "time": now_str})
+
+        if agent_executor:
+            with st.spinner(f"FinanceAI is thinking..."):
+                try:
+                    result = agent_executor.invoke({'messages': [{'role': 'user', 'content': user_input}]})
+                    response = result['messages'][-1].content
+                except Exception as exc:
+                    response = f"Error: {str(exc)}\n\nPlease check your API key and try again."
+        else:
+            response = "Please add your API key (AWS Bedrock or Google Gemini) in the sidebar to start chatting. You can get a free Google Gemini key from Google AI Studio."
+
+        st.session_state.messages.append({"role": "assistant", "content": response, "time": now_str})
+        st.rerun()
 
 if __name__ == "__main__":
     main()
