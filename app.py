@@ -248,7 +248,7 @@ st.markdown(
     
     /* ── Chat Input ── */
     [data-testid="stChatInput"] {
-        background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%) !important;
+        background: #ffffff !important;
         border: 1px solid #10b981 !important;
         border-radius: var(--radius);
         box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1) !important;
@@ -257,11 +257,11 @@ st.markdown(
         background: transparent !important;
     }
     [data-testid="stChatInput"] textarea {
-        color: #ffffff !important;
+        color: #0f172a !important;
         background: transparent !important;
     }
     [data-testid="stChatInput"] textarea::placeholder {
-        color: #34d399 !important;
+        color: #64748b !important;
     }
     [data-testid="stChatInput"] button {
         background: #10b981 !important;
