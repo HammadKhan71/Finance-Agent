@@ -120,19 +120,19 @@ st.markdown(
 
     /* ── Stat Cards ── */
     .stat-card {
-        background: #ffffff;
-        border: 1px solid var(--border);
+        background: #0f172a;
+        border: 1px solid #1e293b;
         border-left: 4px solid #10b981;
         border-radius: var(--radius);
         padding: 1.25rem;
         margin-bottom: 1rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     .stat-card .accent-bar { display: none; }
     .stat-label {
         font-size: 0.875rem;
         font-weight: 500;
-        color: var(--muted-foreground);
+        color: #94a3b8;
         margin-bottom: 0.25rem;
         letter-spacing: normal;
         text-transform: none;
@@ -140,12 +140,12 @@ st.markdown(
     .stat-value {
         font-size: 1.5rem;
         font-weight: 700;
-        color: #0f172a;
+        color: #ffffff;
     }
     .stat-delta {
         font-size: 0.875rem;
         margin-top: 0.25rem;
-        color: var(--muted-foreground);
+        color: #94a3b8;
     }
 
     /* ── Feature Cards ── */
@@ -156,24 +156,24 @@ st.markdown(
         margin-bottom: 2rem;
     }
     .feature-card {
-        background: #ffffff;
-        border: 1px solid var(--border);
-        border-left: 4px solid #0f172a;
+        background: #0f172a;
+        border: 1px solid #1e293b;
+        border-left: 4px solid #10b981;
         border-radius: var(--radius);
         padding: 1.5rem;
         text-align: left;
         transition: transform 0.2s ease, border-left-color 0.2s ease, box-shadow 0.2s ease;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     .feature-card:hover { 
-        background: #ffffff; 
-        border-left-color: #10b981;
-        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+        background: #0f172a; 
+        border-left-color: #34d399;
+        box-shadow: 0 6px 12px rgba(16, 185, 129, 0.2);
         transform: translateY(-2px);
     }
     .feature-icon { font-size: 1.25rem; margin-bottom: 0.5rem; display: none; }
-    .feature-name { font-size: 1rem; font-weight: 700; color: #0f172a; }
-    .feature-desc { font-size: 0.875rem; color: var(--muted-foreground); margin-top: 0.25rem; }
+    .feature-name { font-size: 1rem; font-weight: 700; color: #ffffff; }
+    .feature-desc { font-size: 0.875rem; color: #cbd5e1; margin-top: 0.25rem; }
 
     /* ── Chat Message Bubbles ── */
     @keyframes fadeInUp {
@@ -754,6 +754,9 @@ def render_hero():
                 <div class="hero-badge">AI DataYard GenAI Bootcamp - Multi LLM Support</div>
             </div>
             <div class="hero-title">Your Smart <span>Finance Companion</span></div>
+            <div style="font-size: 1.1rem; color: #10b981; font-weight: 600; text-align: center; margin-bottom: 1rem;">
+                by Hammad Ullah Khan
+            </div>
             <div class="hero-sub">
                 Ask me anything about your finances — log expenses, check budgets, convert currencies,
                 plan savings goals, and get personalised financial advice.
