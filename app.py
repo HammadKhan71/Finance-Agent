@@ -242,7 +242,7 @@ st.markdown(
     .section-header-title {
         font-size: 1rem;
         font-weight: 700;
-        color: #0f172a;
+        color: #ffffff;
     }
     .section-header-line { display: none; }
     
