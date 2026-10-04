@@ -1,0 +1,6 @@
+.env
+__pycache__/
+*.pyc
+logo_base64.txt
+update_logo.py
+clean_readme.py
