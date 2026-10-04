@@ -571,7 +571,6 @@ Thought: {agent_scratchpad}"""
 )
 
 
-@st.cache_resource
 def build_agent(api_key: str, provider: str):
     if provider == "AWS Bedrock":
         # Required format for AWS Nova models via API key
