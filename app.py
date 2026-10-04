@@ -12,6 +12,14 @@ import random
 from datetime import datetime, timedelta
 
 import streamlit as st
+from streamlit.runtime.scriptrunner import get_script_run_ctx, add_script_run_ctx
+
+_SCRIPT_RUN_CTX = None
+
+def attach_ctx():
+    if _SCRIPT_RUN_CTX:
+        add_script_run_ctx(ctx=_SCRIPT_RUN_CTX)
+
 import plotly.graph_objects as go
 import pandas as pd
 from dotenv import load_dotenv
@@ -330,6 +338,7 @@ def calculate_expense(amount: float, category: str, description: str) -> str:
         category    - One of: food, transport, entertainment, shopping, health, utilities, other
         description - Short description of what was purchased
     """
+    attach_ctx()
     date = datetime.now().strftime("%Y-%m-%d %H:%M")
     cat = category.lower().strip()
     
@@ -365,6 +374,7 @@ def get_budget_status(category: str) -> str:
     Parameters:
         category - One of: food, transport, entertainment, shopping, health, utilities
     """
+    attach_ctx()
     cat = category.lower().strip()
     budgets  = st.session_state.monthly_budget
     spending = st.session_state.monthly_spending
@@ -421,6 +431,7 @@ def calculate_savings_goal(target_amount: float, monthly_savings: float) -> str:
         target_amount   - Target savings amount in PKR
         monthly_savings - Monthly amount being saved in PKR
     """
+    attach_ctx()
     if monthly_savings <= 0:
         return "Monthly savings must be greater than zero."
 
@@ -493,6 +504,7 @@ def get_spending_tip(category: str) -> str:
 @tool
 def get_all_budget_summary() -> str:
     """Get a summary of ALL budget categories at once."""
+    attach_ctx()
     budgets  = st.session_state.monthly_budget
     spending = st.session_state.monthly_spending
     lines = ["Monthly Budget Overview\n"]
@@ -955,6 +967,8 @@ def render_chat():
 # ─────────────────────────────────────────────
 
 def main():
+    global _SCRIPT_RUN_CTX
+    _SCRIPT_RUN_CTX = get_script_run_ctx()
     render_sidebar()
 
     # Determine provider and api_key from environment automatically since UI config is removed
