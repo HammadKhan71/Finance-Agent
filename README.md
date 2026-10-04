@@ -1,5 +1,7 @@
 # FinanceAI - Personal Finance Assistant
 
+![FinanceAI Hero](images/hero.png)
+
 ## Improved AI-powered Personal Finance Assistant - AI DataYard GenAI Bootcamp
 
 Built with **Google Gemini 1.5 Flash** / **AWS Bedrock** | **LangChain Agents** | **Streamlit** | **Plotly**
@@ -24,6 +26,12 @@ Built with **Google Gemini 1.5 Flash** / **AWS Bedrock** | **LangChain Agents** 
 
 ---
 
+## Interactive Dashboard
+
+![FinanceAI Dashboard](images/dashboard.png)
+
+---
+
 ## Features
 
 | Tool | Description |
@@ -36,6 +44,12 @@ Built with **Google Gemini 1.5 Flash** / **AWS Bedrock** | **LangChain Agents** 
 | `get_financial_tips` | Personalised tips by topic |
 | `analyze_spending_pattern` | Detect overspending across categories |
 | `calculate_loan_emi` | Monthly EMI calculation with full breakdown |
+
+---
+
+## Intelligent Chat Assistant
+
+![FinanceAI Chat](images/chat.png)
 
 ---
 
