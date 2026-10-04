@@ -58,15 +58,12 @@ pip install -r requirements.txt
 
 Set your API key using one of the methods below:
 
-**Option A - .env file (recommended)**
+**Option - .env file (recommended)**
 Create a `.env` file in the root folder and paste your key:
 ```env
 GOOGLE_API_KEY="your_api_key_here"
 AWS_BEARER_TOKEN_BEDROCK="your_aws_key_here"
 ```
-
-**Option B - Enter in the sidebar**
-Run the application and input your API key directly in the sidebar settings.
 
 ### 4. Run the app
 

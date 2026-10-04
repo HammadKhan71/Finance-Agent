@@ -47,24 +47,24 @@ st.markdown(
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
     :root {
-        --background: #ffffff;
-        --foreground: #0f172a;
-        --card: #ffffff;
-        --card-foreground: #0f172a;
-        --popover: #ffffff;
-        --popover-foreground: #0f172a;
+        --background: #0f172a;
+        --foreground: #ffffff;
+        --card: #1e293b;
+        --card-foreground: #ffffff;
+        --popover: #1e293b;
+        --popover-foreground: #ffffff;
         --primary: #10b981;
         --primary-foreground: #ffffff;
-        --secondary: #f1f5f9;
-        --secondary-foreground: #0f172a;
-        --muted: #f1f5f9;
-        --muted-foreground: #64748b;
-        --accent: #f1f5f9;
-        --accent-foreground: #0f172a;
+        --secondary: #1e293b;
+        --secondary-foreground: #ffffff;
+        --muted: #334155;
+        --muted-foreground: #94a3b8;
+        --accent: #1e293b;
+        --accent-foreground: #ffffff;
         --destructive: #ef4444;
         --destructive-foreground: #ffffff;
-        --border: #e2e8f0;
-        --input: #e2e8f0;
+        --border: #334155;
+        --input: #334155;
         --ring: #10b981;
         --radius: 0.5rem;
     }
@@ -252,6 +252,9 @@ st.markdown(
         border: 1px solid #10b981 !important;
         border-radius: var(--radius);
         box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1) !important;
+    }
+    [data-testid="stChatInput"] > div {
+        background: transparent !important;
     }
     [data-testid="stChatInput"] textarea {
         color: #ffffff !important;
@@ -703,18 +706,6 @@ def render_sidebar():
             unsafe_allow_html=True,
         )
 
-        st.markdown('<div class="section-header"><div class="section-header-title">AI Config</div><div class="section-header-line"></div></div>', unsafe_allow_html=True)
-        
-        provider = st.radio("AI Provider", ["AWS Bedrock", "Google Gemini"], index=0, key="provider")
-        
-        # Automatically populate from .env if available, but do not hardcode in source code!
-        default_key = ""
-        if provider == "AWS Bedrock":
-            default_key = os.getenv("AWS_BEARER_TOKEN_BEDROCK", "")
-        elif provider == "Google Gemini":
-            default_key = os.getenv("GOOGLE_API_KEY", "")
-        
-        api_key = st.text_input(f"{provider} API Key", value=default_key, type="password", placeholder="Enter key...")
 
         st.markdown('<div class="section-header"><div class="section-header-title">Monthly Snapshot</div><div class="section-header-line"></div></div>', unsafe_allow_html=True)
 
@@ -760,7 +751,7 @@ def render_sidebar():
                 </div>
             """, unsafe_allow_html=True)
             
-        return provider, api_key
+        return
 
 
 # ─────────────────────────────────────────────
@@ -855,6 +846,73 @@ def render_expense_history():
 
 
 # ─────────────────────────────────────────────
+# DATA EDITOR TAB
+# ─────────────────────────────────────────────
+
+def render_data_editor():
+    import pandas as pd
+    st.markdown("### Edit Financial Data")
+    st.markdown("Here you can manually adjust your budget, expenses, and savings goals. Changes are reflected instantly across the app.", unsafe_allow_html=True)
+    
+    st.markdown("#### Monthly Budget & Spending")
+    
+    budget_dict = st.session_state.monthly_budget
+    spending_dict = st.session_state.monthly_spending
+    
+    # Create combined dataframe
+    categories = list(budget_dict.keys())
+    data = {
+        "Category": categories,
+        "Budget": [budget_dict[c] for c in categories],
+        "Spent": [spending_dict.get(c, 0) for c in categories]
+    }
+    df = pd.DataFrame(data)
+    
+    edited_df = st.data_editor(
+        df,
+        key="budget_editor",
+        num_rows="dynamic",
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "Category": st.column_config.TextColumn("Category", required=True),
+            "Budget": st.column_config.NumberColumn("Budget (PKR)", min_value=0, step=1000, required=True),
+            "Spent": st.column_config.NumberColumn("Spent (PKR)", min_value=0, step=1000, required=True),
+        }
+    )
+    
+    if not edited_df.equals(df):
+        new_budget = {}
+        new_spending = {}
+        for _, row in edited_df.iterrows():
+            cat = str(row["Category"]).lower().strip()
+            if cat:
+                new_budget[cat] = float(row["Budget"])
+                new_spending[cat] = float(row["Spent"])
+        st.session_state.monthly_budget = new_budget
+        st.session_state.monthly_spending = new_spending
+        st.rerun()
+
+    st.markdown("#### Other Settings")
+    col1, col2 = st.columns(2)
+    with col1:
+        new_income = st.number_input("Monthly Income", value=float(st.session_state.income), step=1000.0)
+        if new_income != st.session_state.income:
+            st.session_state.income = new_income
+            st.rerun()
+            
+        new_sg = st.number_input("Savings Goal", value=float(st.session_state.savings_goal), step=1000.0)
+        if new_sg != st.session_state.savings_goal:
+            st.session_state.savings_goal = new_sg
+            st.rerun()
+            
+    with col2:
+        new_sc = st.number_input("Current Savings", value=float(st.session_state.savings_current), step=1000.0)
+        if new_sc != st.session_state.savings_current:
+            st.session_state.savings_current = new_sc
+            st.rerun()
+
+# ─────────────────────────────────────────────
 # CHAT TAB
 # ─────────────────────────────────────────────
 
@@ -896,7 +954,11 @@ def render_chat():
 # ─────────────────────────────────────────────
 
 def main():
-    provider, api_key = render_sidebar()
+    render_sidebar()
+
+    # Determine provider and api_key from environment automatically since UI config is removed
+    provider = "AWS Bedrock" if os.getenv("AWS_BEARER_TOKEN_BEDROCK") else "Google Gemini"
+    api_key = os.getenv("AWS_BEARER_TOKEN_BEDROCK") or os.getenv("GOOGLE_API_KEY", "")
 
     agent_executor = None
     if api_key:
@@ -910,10 +972,11 @@ def main():
     st.markdown("<br>", unsafe_allow_html=True)
     render_features()
 
-    tab_chat, tab_charts, tab_history = st.tabs([
+    tab_chat, tab_charts, tab_history, tab_data = st.tabs([
         "AI Chat Assistant",
         "Financial Dashboard",
         "Expense History",
+        "Data Editor"
     ])
 
     with tab_chat:
@@ -924,6 +987,9 @@ def main():
 
     with tab_history:
         render_expense_history()
+        
+    with tab_data:
+        render_data_editor()
 
     user_input = st.chat_input("Ask FinanceAI anything about your finances...")
     
