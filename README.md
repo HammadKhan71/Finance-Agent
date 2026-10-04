@@ -1,56 +1,51 @@
-#  FinanceAI — Personal Finance Assistant
+# FinanceAI - Personal Finance Assistant
 
-<p align="center">
-  <strong>Improved AI-powered Personal Finance Assistant — AI DataYard GenAI Bootcamp</strong>
-</p>
+## Improved AI-powered Personal Finance Assistant - AI DataYard GenAI Bootcamp
 
-<p align="center">
-  Built with <b>Google Gemini 1.5 Flash</b> · <b>LangChain Agents</b> · <b>Streamlit</b> · <b>Plotly</b>
-</p>
+Built with **Google Gemini 1.5 Flash** / **AWS Bedrock** | **LangChain Agents** | **Streamlit** | **Plotly**
 
 ---
 
-##  What's Improved Over the Original
+## What's Improved Over the Original
 
 | Feature | Original | FinanceAI (This Project) |
 |---|---|---|
-| AI Model | AWS Bedrock (Nova Lite) | Google Gemini 1.5 Flash (free tier) |
+| AI Model | AWS Bedrock (Nova Lite) | Google Gemini 1.5 Flash / AWS Bedrock |
 | LangChain Tools | 5 tools | **8 tools** |
 | Budget Categories | 4 | **6** (+ health, utilities) |
 | Currencies | 4 | **8** (+ AED, SAR, CAD, AUD) |
-| Charts |  None | ** Donut, Bar, Gauge (Plotly)** |
-| Dashboard Tab |  | ** Full financial dashboard** |
-| Expense History |  | ** Persistent session log** |
-| KPI Stat Cards |  | ** 4 live KPI cards** |
-| Quick Prompts |  | ** 7 one-click prompts** |
-| New Tools | — | **EMI Calculator, Spending Analysis** |
-| Typography | Browser default | **Space Grotesk + Inter (Google Fonts)** |
-| Theme | Basic Streamlit | **Custom dark glassmorphism** |
+| Charts | None | **Donut, Bar, Gauge (Plotly)** |
+| Dashboard Tab | None | **Full financial dashboard** |
+| Expense History | None | **Persistent session log** |
+| KPI Stat Cards | None | **4 live KPI cards** |
+| New Tools | None | **EMI Calculator, Spending Analysis** |
+| Theme | Basic Streamlit | **Professional Light DataYard Theme** |
 | Sidebar | Simple | **Live progress bars per category** |
 
 ---
 
-##  Features
+## Features
 
 | Tool | Description |
 |---|---|
-|  `log_expense` | Log an expense with amount, category & description |
-|  `get_budget_status` | Check budget for a single category |
-|  `get_all_budget_summary` | Full overview of all 6 categories |
-|  `convert_currency` | Convert between 8 currencies |
-|  `calculate_savings_goal` | Project time to reach a savings target |
-|  `get_financial_tips` | Personalised tips by topic |
-|  `analyze_spending_pattern` | Detect overspending across categories |
-|  `calculate_loan_emi` | Monthly EMI calculation with full breakdown |
+| `log_expense` | Log an expense with amount, category & description |
+| `get_budget_status` | Check budget for a single category |
+| `get_all_budget_summary` | Full overview of all 6 categories |
+| `convert_currency` | Convert between 8 currencies |
+| `calculate_savings_goal` | Project time to reach a savings target |
+| `get_financial_tips` | Personalised tips by topic |
+| `analyze_spending_pattern` | Detect overspending across categories |
+| `calculate_loan_emi` | Monthly EMI calculation with full breakdown |
 
 ---
 
-##  Setup & Installation
+## Setup & Installation
 
 ### 1. Clone / Download this project
 
 ```bash
-cd "c:\Users\Hammad\Desktop\ai datayard genai"
+git clone https://github.com/HammadKhan71/Finance-Agent.git
+cd Finance-Agent
 ```
 
 ### 2. Install dependencies
@@ -59,31 +54,21 @@ cd "c:\Users\Hammad\Desktop\ai datayard genai"
 pip install -r requirements.txt
 ```
 
-### 3. Get a Google Gemini API Key
+### 3. API Key Setup
 
-1. Visit [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
-2. Create a **free** API key
-3. Copy it
+Set your API key using one of the methods below:
 
-### 4. Set your API key (choose one method)
-
-**Option A — .env file (recommended)**
-```bash
-cp .env.example .env
-# Edit .env and paste your key:
-# GOOGLE_API_KEY=AIza...
+**Option A - .env file (recommended)**
+Create a `.env` file in the root folder and paste your key:
+```env
+GOOGLE_API_KEY="your_api_key_here"
+AWS_BEARER_TOKEN_BEDROCK="your_aws_key_here"
 ```
 
-**Option B — Streamlit Secrets (for deployment)**
-Create `.streamlit/secrets.toml`:
-```toml
-GOOGLE_API_KEY = "AIza..."
-```
+**Option B - Enter in the sidebar**
+Run the application and input your API key directly in the sidebar settings.
 
-**Option C — Enter in the sidebar**
-Just run the app and paste the key in the sidebar.
-
-### 5. Run the app
+### 4. Run the app
 
 ```bash
 streamlit run app.py
@@ -91,7 +76,7 @@ streamlit run app.py
 
 ---
 
-##  Example Queries
+## Example Queries
 
 ```text
 I spent PKR 3,500 on groceries today
@@ -106,57 +91,16 @@ Show me all my budget categories
 
 ---
 
-##  Agent Architecture
-
-```
-User Query
-    
-    ▼
-Gemini 1.5 Flash (LLM)
-    
-    ▼
-ReAct Agent — Selects Tool(s)
-    
-     log_expense
-     get_budget_status
-     get_all_budget_summary
-     convert_currency
-     calculate_savings_goal
-     get_financial_tips
-     analyze_spending_pattern
-     calculate_loan_emi
-    
-    ▼
-Final Answer → Chat UI
-```
-
----
-
-##  Project Structure
-
-```
-ai datayard genai/
- app.py                  # Main Streamlit application
- requirements.txt        # Python dependencies
- .env.example            # API key template
- .streamlit/
-    config.toml         # Streamlit dark theme config
- README.md               # This file
-```
-
----
-
-##  Tech Stack
+## Tech Stack
 
 - **Python 3.10+**
-- **Streamlit** — Web UI framework
-- **LangChain** — Agent & tool orchestration
-- **langchain-google-genai** — Gemini integration
-- **Google Gemini 1.5 Flash** — Language model
-- **Plotly** — Interactive financial charts
-- **Pandas** — Data tables
-- **python-dotenv** — Environment management
+- **Streamlit** - Web UI framework
+- **LangChain** - Agent & tool orchestration
+- **langchain-google-genai** - Gemini integration
+- **Plotly** - Interactive financial charts
+- **Pandas** - Data tables
+- **python-dotenv** - Environment management
 
 ---
 
-> Built with  for AI DataYard Generative AI Bootcamp
+Built for AI DataYard Generative AI Bootcamp
