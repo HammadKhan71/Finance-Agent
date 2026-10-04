@@ -258,11 +258,11 @@ st.markdown(
         background-color: #ffffff !important;
     }
     [data-testid="stChatInput"] textarea {
-        color: #10b981 !important;
+        color: #000000 !important;
         background-color: #ffffff !important;
     }
     [data-testid="stChatInput"] textarea::placeholder {
-        color: rgba(16, 185, 129, 0.7) !important;
+        color: rgba(0, 0, 0, 0.7) !important;
     }
     [data-testid="stChatInput"] button {
         background-color: #10b981 !important;
