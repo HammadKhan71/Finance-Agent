@@ -120,11 +120,13 @@ st.markdown(
 
     /* ── Stat Cards ── */
     .stat-card {
-        background: var(--card);
+        background: #ffffff;
         border: 1px solid var(--border);
+        border-left: 4px solid #10b981;
         border-radius: var(--radius);
         padding: 1.25rem;
         margin-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
     .stat-card .accent-bar { display: none; }
     .stat-label {
@@ -138,7 +140,7 @@ st.markdown(
     .stat-value {
         font-size: 1.5rem;
         font-weight: 700;
-        color: var(--foreground);
+        color: #0f172a;
     }
     .stat-delta {
         font-size: 0.875rem;
@@ -149,20 +151,28 @@ st.markdown(
     /* ── Feature Cards ── */
     .feature-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: 1fr;
         gap: 1rem;
         margin-bottom: 2rem;
     }
     .feature-card {
-        background: var(--card);
+        background: #ffffff;
         border: 1px solid var(--border);
+        border-left: 4px solid #0f172a;
         border-radius: var(--radius);
         padding: 1.5rem;
         text-align: left;
+        transition: transform 0.2s ease, border-left-color 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
-    .feature-card:hover { background: var(--accent); }
-    .feature-icon { font-size: 1.25rem; margin-bottom: 0.5rem; }
-    .feature-name { font-size: 1rem; font-weight: 600; color: var(--foreground); }
+    .feature-card:hover { 
+        background: #ffffff; 
+        border-left-color: #10b981;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+        transform: translateY(-2px);
+    }
+    .feature-icon { font-size: 1.25rem; margin-bottom: 0.5rem; display: none; }
+    .feature-name { font-size: 1rem; font-weight: 700; color: #0f172a; }
     .feature-desc { font-size: 0.875rem; color: var(--muted-foreground); margin-top: 0.25rem; }
 
     /* ── Chat Message Bubbles ── */
@@ -230,9 +240,9 @@ st.markdown(
         border-bottom: 1px solid var(--border);
     }
     .section-header-title {
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: var(--foreground);
+        font-size: 1rem;
+        font-weight: 700;
+        color: #0f172a;
     }
     .section-header-line { display: none; }
     
