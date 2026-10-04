@@ -120,7 +120,7 @@ st.markdown(
 
     /* ── Stat Cards ── */
     .stat-card {
-        background: #0f172a;
+        background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
         border: 1px solid #1e293b;
         border-left: 4px solid #10b981;
         border-radius: var(--radius);
@@ -131,8 +131,8 @@ st.markdown(
     .stat-card .accent-bar { display: none; }
     .stat-label {
         font-size: 0.875rem;
-        font-weight: 500;
-        color: #94a3b8;
+        font-weight: 600;
+        color: #34d399;
         margin-bottom: 0.25rem;
         letter-spacing: normal;
         text-transform: none;
@@ -145,7 +145,7 @@ st.markdown(
     .stat-delta {
         font-size: 0.875rem;
         margin-top: 0.25rem;
-        color: #94a3b8;
+        color: #34d399;
     }
 
     /* ── Feature Cards ── */
@@ -156,7 +156,7 @@ st.markdown(
         margin-bottom: 2rem;
     }
     .feature-card {
-        background: #0f172a;
+        background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
         border: 1px solid #1e293b;
         border-left: 4px solid #10b981;
         border-radius: var(--radius);
@@ -166,14 +166,14 @@ st.markdown(
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     .feature-card:hover { 
-        background: #0f172a; 
+        background: linear-gradient(135deg, #0f172a 0%, #065f46 100%);
         border-left-color: #34d399;
         box-shadow: 0 6px 12px rgba(16, 185, 129, 0.2);
         transform: translateY(-2px);
     }
     .feature-icon { font-size: 1.25rem; margin-bottom: 0.5rem; display: none; }
     .feature-name { font-size: 1rem; font-weight: 700; color: #ffffff; }
-    .feature-desc { font-size: 0.875rem; color: #cbd5e1; margin-top: 0.25rem; }
+    .feature-desc { font-size: 0.875rem; color: #34d399; margin-top: 0.25rem; }
 
     /* ── Chat Message Bubbles ── */
     @keyframes fadeInUp {
@@ -245,6 +245,26 @@ st.markdown(
         color: #0f172a;
     }
     .section-header-line { display: none; }
+    
+    /* ── Chat Input ── */
+    [data-testid="stChatInput"] {
+        background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%) !important;
+        border: 1px solid #10b981 !important;
+        border-radius: var(--radius);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1) !important;
+    }
+    [data-testid="stChatInput"] textarea {
+        color: #ffffff !important;
+        background: transparent !important;
+    }
+    [data-testid="stChatInput"] textarea::placeholder {
+        color: #34d399 !important;
+    }
+    [data-testid="stChatInput"] button {
+        background: #10b981 !important;
+        color: #ffffff !important;
+        border-radius: var(--radius) !important;
+    }
     
     footer { visibility: hidden; }
     </style>
